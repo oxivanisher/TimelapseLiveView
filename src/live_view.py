@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
-from os import walk, path, getenv
-from flask import Flask, render_template, request, abort
+import time
+from os import walk, path, getenv, stat, unlink
+from flask import Flask, render_template, request, abort, redirect, url_for
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = './static'
@@ -9,7 +10,6 @@ ALLOWED_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif']
 
 app = Flask(__name__)
 # config
-app.debug
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
@@ -23,20 +23,31 @@ def allowed_file(file_path):
     return False
 
 
+def check_file_age(file_name):
+    if stat(path.join(UPLOAD_FOLDER, file_name)).st_mtime < time.time() - 15 * 60:
+        unlink(path.join(UPLOAD_FOLDER, file_name))
+        app.logger.warning("Removed file %s due to age older than 15 minutes" % file_name)
+        return False
+    return True
+
+
 @app.route('/')
 def index():
     cameras = []
     for (dir_path, dir_names, file_names) in walk(UPLOAD_FOLDER):
         for file_name in file_names:
             if allowed_file(file_name):
-                cameras.append(file_name)
+                if check_file_age(file_name):
+                    cameras.append(file_name)
     app.logger.debug('cameras found: %s', cameras)
     return render_template('index.html.jinja2', cameras=cameras)
 
 
 @app.route('/viewer/<camera>')
 def viewer(camera):
-    return render_template('viewer.html.jinja2', camera=camera)
+    if check_file_age(camera):
+        return render_template('viewer.html.jinja2', camera=camera)
+    return redirect(url_for('index'))
 
 
 @app.route('/upload/<requested_file_name>', methods=['POST', 'PUT'])
