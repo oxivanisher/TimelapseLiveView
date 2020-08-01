@@ -7,4 +7,5 @@ services:
     ports:
       - "3039:5000"
     environment:
-      UPLOAD_KEY: set_something_here
+      # create a .env file containing UPLOAD_KEY=something_secret
+      UPLOAD_KEY: ${UPLOAD_KEY}
