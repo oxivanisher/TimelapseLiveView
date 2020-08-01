@@ -9,6 +9,7 @@ ALLOWED_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif']
 
 app = Flask(__name__)
 # config
+app.debug
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
@@ -41,7 +42,8 @@ def viewer(camera):
 @app.route('/upload/<requested_file_name>', methods=['POST', 'PUT'])
 def upload(requested_file_name):
     if request.form.get("upload_key") != getenv('UPLOAD_KEY'):
-        app.logger.error('upload key wrong: %s', request.form.get("upload_key"))
+        app.logger.warning('upload key wrong <%s>. It should be <%s>' % (request.form.get("upload_key"),
+                                                                         getenv('UPLOAD_KEY')))
         abort(401)
 
     file = request.files['file']
@@ -52,4 +54,3 @@ def upload(requested_file_name):
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
-    app.logger.info('Using upload key: %s' % getenv('UPLOAD_KEY'))
