@@ -21,10 +21,10 @@ img {
 <meta http-equiv="Expires" content="0" />
 </head>
 <body>
-<img src="{{url_for("static", filename=camera)}}" id="live_image" alt="Live view" />
+<img src="{{url_for("static", filename=camera)}}?t={{ now }}" id="live_image" alt="Live view" />
 <script type="text/javascript">
 var newImage = new Image();
-newImage.src = "{{url_for("static", filename=camera)}}";
+newImage.src = "{{url_for("static", filename=camera)}}?t={{ now }}";
 
 function updateImage()
 {

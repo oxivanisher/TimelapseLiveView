@@ -41,13 +41,13 @@ def index():
                 if check_file_age(file_name):
                     cameras.append(file_name)
     app.logger.debug('cameras found: %s', cameras)
-    return render_template('index.html.jinja2', cameras=cameras)
+    return render_template('index.html.jinja2', cameras=cameras, now=int(time.time()))
 
 
 @app.route('/viewer/<camera>')
 def viewer(camera):
     if check_file_age(camera):
-        return render_template('viewer.html.jinja2', camera=camera)
+        return render_template('viewer.html.jinja2', camera=camera, now=int(time.time()))
     return redirect(url_for('index'))
 
 
