@@ -25,6 +25,9 @@ def allowed_file(file_path):
 
 
 def check_file_age(file_name):
+    if not path.isfile(path.join(UPLOAD_FOLDER, file_name)):
+        app.logger.warning("File %s not existing" % file_name)
+        return False
     if stat(path.join(UPLOAD_FOLDER, file_name)).st_mtime < time.time() - 15 * 60:
         unlink(path.join(UPLOAD_FOLDER, file_name))
         app.logger.warning("Removed file %s due to age older than 15 minutes" % file_name)
