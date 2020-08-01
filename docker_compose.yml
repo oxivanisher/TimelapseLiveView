@@ -1,0 +1,10 @@
+version: "2"
+services:
+  pywishlist:
+    container_name: timelapse-live-view
+    restart: unless-stopped
+    build: .
+    ports:
+      - "3039:5000"
+    environment:
+      UPLOAD_KEY: set_something_here
