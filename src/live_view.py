@@ -52,3 +52,4 @@ def upload(requested_file_name):
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
+    app.logger.info('Using upload key: %s' % getenv('UPLOAD_KEY'))
