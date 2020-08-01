@@ -8,7 +8,7 @@
 <h1>Index of cameras</h1>
 <ul>
 {% for camera in cameras %}
-<li><a href="{{ url_for('viewer', camera=camera) }}?t={{ now }}">{{ camera }}</a>
+<li><a href="{{ url_for('viewer', camera=camera) }}">{{ camera }}</a>
 {% else %}
 <li><em>Unbelievable. No entries here so far</em>
 {% endfor %}
