@@ -1,6 +1,6 @@
 version: "2"
 services:
-  pywishlist:
+  pytimelapse:
     container_name: timelapse-live-view
     restart: unless-stopped
     build: .
