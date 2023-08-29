@@ -2,7 +2,7 @@
 
 import time
 from os import walk, path, getenv, stat, unlink
-from flask import Flask, render_template, request, abort, redirect, url_for
+from flask import Flask, render_template, request, abort, redirect, url_for, send_file
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = './upload'
@@ -65,6 +65,10 @@ def upload(requested_file_name):
     requested_file_name = secure_filename(requested_file_name)
     file.save(path.join(app.config['UPLOAD_FOLDER'], requested_file_name))
     return requested_file_name
+
+@app.route('/image')
+def image(filename):
+    return send_file(path.join(app.config['UPLOAD_FOLDER'], filename), attachment_filename=filename)
 
 @app.route('/manifest.json')
 def manifest():

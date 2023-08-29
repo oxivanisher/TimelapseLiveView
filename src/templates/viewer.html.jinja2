@@ -33,10 +33,10 @@ img {
 <meta http-equiv="Expires" content="0" />
 </head>
 <body>
-<img src="{{url_for("upload", filename=camera)}}?t={{ now }}" id="live_image" alt="Live view" />
+<img src="{{url_for("image", filename=camera)}}?t={{ now }}" id="live_image" alt="Live view" />
 <script type="text/javascript">
 var newImage = new Image();
-newImage.src = "{{url_for("upload", filename=camera)}}?t={{ now }}";
+newImage.src = "{{url_for("image", filename=camera)}}?t={{ now }}";
 
 function updateImage()
 {
@@ -44,7 +44,7 @@ function updateImage()
         if (newImage.naturalWidth > 0) {
             document.getElementById("live_image").src = newImage.src;
             newImage = new Image();
-            newImage.src = "{{url_for("upload", filename=camera)}}?t=" + Date.now();
+            newImage.src = "{{url_for("image", filename=camera)}}?t=" + Date.now();
             console.log("refreshing image at " + Date.now());
         } else {
             console.log("not reloading image, since we probably got the not finally written file at " + Date.now());
