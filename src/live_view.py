@@ -5,7 +5,7 @@ from os import walk, path, getenv, stat, unlink
 from flask import Flask, render_template, request, abort, redirect, url_for
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = './static'
+UPLOAD_FOLDER = './upload'
 ALLOWED_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif']
 
 app = Flask(__name__)
@@ -66,6 +66,9 @@ def upload(requested_file_name):
     file.save(path.join(app.config['UPLOAD_FOLDER'], requested_file_name))
     return requested_file_name
 
+@app.route('/manifest.json')
+def manifest():
+    return render_template('manifest.json.jinja2')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

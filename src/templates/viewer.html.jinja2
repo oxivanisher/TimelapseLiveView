@@ -9,6 +9,11 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 <title>Live view for {{ camera }}</title>
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="{{url_for('static', filename='favicon.svg')}}">
+<link rel="mask-icon" href="{{url_for('static', filename='favicon.svg')}}" color="#000000">
+<link rel="apple-touch-icon" href="{{url_for('static', filename='apple-touch-icon.png')}}">
+<link rel="manifest" href="{{ url_for('manifest') }}">
 <style>
 html, body {
     height: 100%;
