@@ -20,6 +20,7 @@ h1 {
 .viewer {
     justify-content: center;
     text-align: center;
+    margin-top: 5px;
 }
 
 .box {
@@ -33,4 +34,8 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
+}
+
+.margin_top {
+ margin-top: 5px;
 }
