@@ -66,7 +66,7 @@ def upload(requested_file_name):
     file.save(path.join(app.config['UPLOAD_FOLDER'], requested_file_name))
     return requested_file_name
 
-@app.route('/image')
+@app.route('/image/<filename>')
 def image(filename):
     return send_file(path.join(app.config['UPLOAD_FOLDER'], filename), attachment_filename=filename)
 
