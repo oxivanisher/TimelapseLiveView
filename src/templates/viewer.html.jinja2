@@ -3,8 +3,6 @@
 {%  block title %}Live view for {{ camera.split('.')[:-1] | join('.') }}{% endblock %}
 
 {% block content %}
-<div class="container">
-<div class="box">
 <img src="{{url_for("image", filename=camera)}}?t={{ now }}" id="live_image" alt="Live view" />
 <a href="{{url_for("index")}}" class="btn btn-primary btn-lg" role="button">Back</a>
 <script type="text/javascript">
@@ -30,6 +28,4 @@ function updateImage()
 
 updateImage();
 </script>
-</div>
-</div>
 {% endblock %}
