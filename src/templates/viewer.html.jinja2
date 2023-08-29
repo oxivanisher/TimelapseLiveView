@@ -3,8 +3,10 @@
 {%  block title %}Live view for {{ camera.split('.')[:-1] | join('.') }}{% endblock %}
 
 {% block content %}
+<div class="viewer">
 <img src="{{url_for("image", filename=camera)}}?t={{ now }}" id="live_image" alt="Live view" />
-<a href="{{url_for("index")}}" class="btn btn-primary btn-lg" role="button">Back</a>
+<a href="{{url_for("index")}}" class="btn btn-primary btn-lg" role="button" style="margin-top: 5px;">Back</a>
+</div>
 <script type="text/javascript">
 var newImage = new Image();
 newImage.src = "{{url_for("image", filename=camera)}}?t={{ now }}";

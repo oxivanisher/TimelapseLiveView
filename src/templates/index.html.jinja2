@@ -9,7 +9,7 @@
 <div class="box">
 <a href="{{ url_for('viewer', camera=camera) }}">
 <img src="{{url_for("image", filename=camera)}}" id="live_image" alt="{{ camera.split('.')[:-1] | join('.') }}">
-<span class="btn btn-primary btn-lg" role="button">{{ camera.split('.')[:-1] | join('.') }}</span></a>
+<span class="btn btn-primary btn-lg" role="button" style="margin-top: 5px;">{{ camera.split('.')[:-1] | join('.') }}</span></a>
 </div>
 <script type="text/javascript">
 setTimeout(() => {
@@ -23,7 +23,7 @@ setTimeout(() => {
 setTimeout(() => {
     console.log("Reload page...");
     document.location.reload();
-}, 2200);
+}, 4200);
 </script>
 {% endfor %}
 </div>
