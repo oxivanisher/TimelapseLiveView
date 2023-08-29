@@ -8,7 +8,7 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-<title>Live view for {{ camera }}</title>
+<title>Live view for {{ camera.split('.')[:-1] | join('.') }}</title>
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="{{url_for('static', filename='favicon.svg')}}">
 <link rel="mask-icon" href="{{url_for('static', filename='favicon.svg')}}" color="#000000">

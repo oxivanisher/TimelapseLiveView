@@ -20,7 +20,7 @@
 <h1>Index of cameras</h1>
 {% for camera in cameras %}
 <br />
-<a href="{{ url_for('viewer', camera=camera) }}" class="btn btn-primary btn-lg" role="button">{{ camera }}</a><br />
+<a href="{{ url_for('viewer', camera=camera) }}" class="btn btn-primary btn-lg" role="button">{{ camera.split('.')[:-1] | join('.') }}</a><br />
 {% else %}
 <em>Unbelievable. No entries here so far</em>
 {% endfor %}
