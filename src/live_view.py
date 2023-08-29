@@ -68,7 +68,10 @@ def upload(requested_file_name):
 
 @app.route('/image/<filename>')
 def image(filename):
-    return send_file(path.join(app.config['UPLOAD_FOLDER'], filename), download_name=filename)
+    try:
+        return send_file(path.join(app.config['UPLOAD_FOLDER'], filename), download_name=filename)
+    except Exception as e:
+        return redirect(url_for('index'))
 
 @app.route('/manifest.json')
 def manifest():
