@@ -11,14 +11,20 @@
 <img src="{{url_for("image", filename=camera)}}" id="live_image" alt="{{ camera.split('.')[:-1] | join('.') }}">
 <span class="btn btn-primary btn-lg" role="button">{{ camera.split('.')[:-1] | join('.') }}</span></a>
 </div>
-{% else %}
-<div class="box"><em>Unbelievable! No entries here so far...</em></div>
-{% endfor %}
-</div>
 <script type="text/javascript">
 setTimeout(() => {
     console.log("Reload page...");
     document.location.reload();
 }, 30200);
 </script>
+{% else %}
+<div class="box"><em>Unbelievable! No entries here so far...</em></div>
+<script type="text/javascript">
+setTimeout(() => {
+    console.log("Reload page...");
+    document.location.reload();
+}, 2200);
+</script>
+{% endfor %}
+</div>
 {% endblock %}
