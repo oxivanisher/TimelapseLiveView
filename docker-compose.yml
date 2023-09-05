@@ -3,9 +3,10 @@ services:
   pytimelapse:
     container_name: timelapse-live-view
     restart: unless-stopped
-    build: .
+    image: ghcr.io/oxivanisher/timelapseliveview:master
+    # build: .
     ports:
-      - "3039:5000"
+      - "${PUBLISH_PORT}:5000"
     environment:
       # create a .env file containing UPLOAD_KEY=something_secret
       UPLOAD_KEY: ${UPLOAD_KEY}
