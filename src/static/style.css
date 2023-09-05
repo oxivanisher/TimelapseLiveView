@@ -7,7 +7,7 @@ html, body {
 img {
     padding: 0;
     display: block;
-    max-height: calc(100vh - 10px);
+    max-height: 100%;
     max-width: 100%;
     margin: 0 auto;
     box-shadow: 0 0 4px -1px #000;
@@ -15,6 +15,10 @@ img {
 
 h1 {
     text-align: center;
+}
+
+.viewer_img {
+    max-height: calc(100vh - 10px);
 }
 
 .viewer {

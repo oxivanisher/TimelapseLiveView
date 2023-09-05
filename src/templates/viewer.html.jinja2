@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="viewer margin_top">
-<img src="{{url_for("image", filename=camera)}}?t={{ now }}" id="live_image" alt="Live view" />
+<img src="{{url_for("image", filename=camera)}}?t={{ now }}" id="live_image" alt="Live view" class="viewer_img" />
 <a href="{{url_for("index")}}" class="btn btn-primary btn-lg margin_top" role="button">Back</a>
 </div>
 <script type="text/javascript">
