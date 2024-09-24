@@ -12,6 +12,9 @@
 var newImage = new Image();
 newImage.src = "{{url_for("image", filename=camera)}}?t={{ now }}";
 
+var imageReload = null;
+var pageReload = null;
+
 function updateImage()
 {
     if(newImage.complete) {
@@ -23,15 +26,15 @@ function updateImage()
         } else {
             console.log("not reloading image, since we probably got the not finally written file at " + Date.now());
             console.log("planning to reload complete page in 1 second");
-            setTimeout(document.location.reload(), 1000);
+            pageReload = setTimeout(document.location.reload(), 1000);
         }
     }
-    setTimeout(updateImage, 30200);
+    imageReload = setTimeout(updateImage, 30200);
 }
 
 updateImage();
 
 // reload on focus
-window.onblur= function() {window.onfocus= function () {document.location.reload(true)}};
+window.onblur= function() {window.onfocus= function () {clearTimeout(imageReload); updateImage();}};
 </script>
 {% endblock %}
