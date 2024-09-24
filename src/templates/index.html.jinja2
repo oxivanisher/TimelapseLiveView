@@ -11,20 +11,18 @@
 <img src="{{url_for("image", filename=camera)}}" id="live_image" alt="{{ camera.split('.')[:-1] | join('.') }}">
 <span class="btn btn-primary btn-lg margin_top" role="button">{{ camera.split('.')[:-1] | join('.') }}</span></a>
 </div>
-<script type="text/javascript">
-setTimeout(() => {
-    console.log("Reload page...");
-    document.location.reload();
-}, 30200);
-</script>
 {% else %}
 <div class="box"><em>Unbelievable! No entries here so far...</em></div>
+{% endfor %}
 <script type="text/javascript">
+// reload on focus
+window.onblur= function() {window.onfocus= function () {document.location.reload(true)}};
+
+// reload periodically
 setTimeout(() => {
     console.log("Reload page...");
     document.location.reload();
-}, 4200);
+}, {% if cameras | length > 0 %}30200{% else %}4200{% endfor %});
 </script>
-{% endfor %}
 </div>
 {% endblock %}

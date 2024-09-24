@@ -8,6 +8,7 @@
 <a href="{{url_for("index")}}" class="btn btn-primary btn-lg margin_top" role="button">Back</a>
 </div>
 <script type="text/javascript">
+// refresh image every 30 seconds
 var newImage = new Image();
 newImage.src = "{{url_for("image", filename=camera)}}?t={{ now }}";
 
@@ -29,5 +30,8 @@ function updateImage()
 }
 
 updateImage();
+
+// reload on focus
+window.onblur= function() {window.onfocus= function () {document.location.reload(true)}};
 </script>
 {% endblock %}
