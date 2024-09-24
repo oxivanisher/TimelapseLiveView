@@ -22,7 +22,7 @@ window.onblur= function() {window.onfocus= function () {document.location.reload
 setTimeout(() => {
     console.log("Reload page...");
     document.location.reload();
-}, {% if cameras | length > 0 %}30200{% else %}4200{% endfor %});
+}, {% if cameras | length > 0 %}30200{% else %}4200{% endif %});
 </script>
 </div>
 {% endblock %}
