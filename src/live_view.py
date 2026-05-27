@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import time
-from os import walk, path, getenv, stat, unlink
+from os import walk, path, getenv, stat, unlink, makedirs
 from flask import Flask, render_template, request, abort, redirect, url_for, send_file
 from werkzeug.utils import secure_filename
 
@@ -9,6 +9,7 @@ UPLOAD_FOLDER = './upload'
 ALLOWED_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif']
 
 app = Flask(__name__)
+makedirs(UPLOAD_FOLDER, exist_ok=True)
 # config
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
