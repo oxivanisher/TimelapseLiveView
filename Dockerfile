@@ -7,4 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src .
 
+RUN mkdir -p upload && chmod 777 upload
+
 CMD [ "python", "./live_view.py" ]
