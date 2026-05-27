@@ -3,7 +3,7 @@ services:
   pytimelapse:
     container_name: timelapse-live-view
     restart: unless-stopped
-    image: ghcr.io/oxivanisher/timelapseliveview:master
+    image: ghcr.io/oxivanisher/timelapseliveview:latest
     # build: .
     ports:
       - "${PUBLISH_PORT}:5000"
