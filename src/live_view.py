@@ -9,6 +9,7 @@ UPLOAD_FOLDER = './upload'
 ALLOWED_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif']
 
 app = Flask(__name__)
+print(f"TimelapseLiveView starting (commit: {getenv('GIT_COMMIT', 'unknown')})", flush=True)
 makedirs(UPLOAD_FOLDER, exist_ok=True)
 # config
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
