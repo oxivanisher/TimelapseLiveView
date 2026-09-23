@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
+import re
 import time
 from os import walk, path, getenv, stat, unlink, makedirs
 from flask import Flask, render_template, request, abort, redirect, url_for, send_file
 from werkzeug.utils import secure_filename
+from PIL import Image
 
 UPLOAD_FOLDER = './upload'
 ALLOWED_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif']
@@ -37,6 +39,47 @@ def check_file_age(file_name):
     return True
 
 
+def crop_env_name(file_name):
+    # "front-door.jpg" -> "CROP_FRONT_DOOR"
+    camera_name = path.splitext(file_name)[0]
+    return 'CROP_' + re.sub(r'[^A-Z0-9]', '_', camera_name.upper())
+
+
+def get_crop_box(file_name):
+    env_name = crop_env_name(file_name)
+    value = getenv(env_name)
+    if not value:
+        return None
+    try:
+        x1, y1, x2, y2 = [int(v) for v in value.split(',')]
+    except ValueError:
+        app.logger.warning('%s=%s is invalid, expected "x1,y1,x2,y2". Not cropping.' % (env_name, value))
+        return None
+    # corners may be given in any order
+    return min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)
+
+
+def save_image(file, file_path, crop_box):
+    if crop_box is None:
+        file.save(file_path)
+        return
+    img = Image.open(file.stream)
+    img_format = img.format
+    left, top, right, bottom = crop_box
+    crop_box = (max(0, left), max(0, top), min(img.width, right), min(img.height, bottom))
+    if crop_box[0] >= crop_box[2] or crop_box[1] >= crop_box[3]:
+        app.logger.warning('Crop box %s is outside of the %sx%s image. Not cropping.'
+                           % (crop_box, img.width, img.height))
+        file.stream.seek(0)
+        file.save(file_path)
+        return
+    img = img.crop(crop_box)
+    if img_format == 'JPEG':
+        img.save(file_path, format=img_format, quality=95)
+    else:
+        img.save(file_path, format=img_format)
+
+
 @app.route('/')
 def index():
     cameras = []
@@ -65,7 +108,7 @@ def upload(requested_file_name):
 
     file = request.files['file']
     requested_file_name = secure_filename(requested_file_name)
-    file.save(path.join(app.config['UPLOAD_FOLDER'], requested_file_name))
+    save_image(file, path.join(app.config['UPLOAD_FOLDER'], requested_file_name), get_crop_box(requested_file_name))
     return requested_file_name
 
 @app.route('/image/<filename>')

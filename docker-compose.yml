@@ -7,6 +7,8 @@ services:
     # build: .
     ports:
       - "${PUBLISH_PORT}:5000"
+    # optional per camera cropping (e.g. CROP_GARDEN=100,50,1820,1030) is read from .env as well
+    env_file: .env
     environment:
       # create a .env file containing UPLOAD_KEY=something_secret
       UPLOAD_KEY: ${UPLOAD_KEY}
